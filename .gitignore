@@ -208,3 +208,6 @@ fabric.properties
 
 # Authorisation files
 *.pem
+/.idea/misc.xml
+/.idea/inspectionProfiles/profiles_settings.xml
+/.idea/vcs.xml
