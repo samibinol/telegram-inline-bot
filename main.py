@@ -3,7 +3,7 @@ from telegram import *
 from dotenv import load_dotenv
 import logging
 import os
-from pymongo import MongoClient
+
 
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.DEBUG

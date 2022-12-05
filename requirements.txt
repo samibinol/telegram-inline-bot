@@ -2,3 +2,4 @@
 telegram~=0.0.1
 python-dotenv~=0.21.0
 pymongo~=4.3.3
+fastapi~=0.88.0
