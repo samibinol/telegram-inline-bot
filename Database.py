@@ -3,9 +3,12 @@ from pymongo import *
 from dotenv import load_dotenv
 from fastapi import FastAPI
 
+
 app = FastAPI()
 
 load_dotenv()
+
+# Loading enviroment variables
 
 login = os.getenv("LOGIN")
 uri_env = os.getenv("URI")
@@ -13,6 +16,8 @@ user = os.getenv("USER")
 
 uri = "mongodb://" + str(user) + ":" + str(login) + "@" + str(uri_env)
 
+
+# Establish a connection to the database
 
 def authenticate():
     try:
@@ -24,4 +29,5 @@ def authenticate():
         print("Connected to the database!")
 
 
-authenticate()
+# Only uncomment to test the database connection:
+# authenticate()
