@@ -1,5 +1,5 @@
 from telegram.ext import *
-# from telegram import *
+from telegram import *
 from dotenv import load_dotenv
 import logging
 import os
@@ -32,11 +32,15 @@ def add_sticker(update, context):
     pass
 
 
+# passing cached sticker to answer_inline_query with list
+
+
 def inline_query(update, context):
     query = update.inline_query.query
-    db.search(query)
-    if query != "none":
-        pass
+    inline_id = update.inline_query.id
+    stickers = db.search(query)
+    if stickers != "none":
+        update.inline_query.answer_inline_query(inline_id, stickers)
     else:
         pass
 

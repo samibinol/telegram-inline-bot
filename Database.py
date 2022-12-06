@@ -35,5 +35,8 @@ def search(query):
     pass
 
 
+def add(id_sticker):
+    pass
+
 # Only uncomment to test the database connection:
 # authenticate()
