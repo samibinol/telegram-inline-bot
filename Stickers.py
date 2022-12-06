@@ -1,1 +1,1 @@
-# TODO: Move sticker handling to seperate file
+# TODO: Move sticker handling to separate file

@@ -1,5 +1,5 @@
 from telegram.ext import *
-from telegram import *
+# from telegram import *
 from dotenv import load_dotenv
 import logging
 import os
@@ -9,7 +9,8 @@ import Database as db
 # TODO: changing logging status with -d argument 
 
 logging.basicConfig(
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.DEBUG
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    level=logging.DEBUG
 )
 logger = logging.getLogger(__name__)
 
@@ -22,19 +23,22 @@ token = os.getenv('TELEGRAM_API_KEY')
 # Commands 
 
 def start_command(update, context):
-    update.message.reply_text('Hello!')
+    update.message.reply_text('Hello! This is just a test version of an inline sticker bot and in no way a finished '
+                              'bot. If you have any questions, you can ask my creator @samibinol. '
+                              'Thank you for understanding!')
 
 
 def add_sticker(update, context):
     pass
 
 
-# TODO: adding the inline function
-
-"""
 def inline_query(update, context):
     query = update.inline_query.query
-"""
+    db.search(query)
+    if query != "none":
+        pass
+    else:
+        pass
 
 
 # Catch errors from python-telegram-bot
@@ -50,6 +54,7 @@ def main():
     dp = updater.dispatcher
 
     dp.add_handler(CommandHandler("start", start_command))
+    dp.add_handler(CommandHandler("add", add_sticker))
 
     dp.add_error_handler(error)
     

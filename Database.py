@@ -29,5 +29,11 @@ def authenticate():
         print("Connected to the database!")
 
 
+# Search for Stickers with passed tag
+
+def search(query):
+    pass
+
+
 # Only uncomment to test the database connection:
 # authenticate()
