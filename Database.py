@@ -1,8 +1,6 @@
 import sqlite3
 import re
 
-# app = FastAPI()
-
 conn = sqlite3.connect('stickers.db')
 
 c = conn.cursor()
