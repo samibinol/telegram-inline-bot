@@ -1,9 +1,5 @@
-import os
 import sqlite3
-import pymongo
-from pymongo import *
-from dotenv import load_dotenv
-from fastapi import FastAPI
+import re
 
 # app = FastAPI()
 
@@ -17,12 +13,25 @@ c = conn.cursor()
 # tags (list, the user-defined tags used to search the sticker)
 
 def search(query):
-    return None
+    qc = re.sub(r'\W', '', query)
+    q = "%" + qc + "%"
+    cursor = conn.execute("""SELECT sid FROM stickers WHERE tags LIKE ?""", (q,))
+    fa = cursor.fetchall()
+    return fa
+
+
+def remove(sid):
+    sc = re.sub(r'\W', '', sid)
+    c.execute("""DELETE FROM stickers WHERE sid = ?""", (sc,))
+    conn.commit()
+    return 0
 
 
 def add(sid, tags):
     # Fetch row with matching SID and remove the sid to get the tags
     # Structure: "tag1,tag2,tag3"
+
+    # TODO: change sql syntax to only select tags
 
     cursor = conn.execute("""SELECT * FROM stickers WHERE sid == ?""", (sid,))
     fa = cursor.fetchall()
@@ -45,3 +54,4 @@ def add(sid, tags):
 
 # Only uncomment to test the database connection:
 # add("sduif67", "test54,test53,test98")
+search("test")
