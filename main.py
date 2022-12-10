@@ -10,8 +10,7 @@ import Database as db
 
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-    level=logging.DEBUG
-)
+    level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 # Loading the API Key from the ENV file
