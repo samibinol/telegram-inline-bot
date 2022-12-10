@@ -1,42 +1,47 @@
 import os
+import sqlite3
+import pymongo
 from pymongo import *
 from dotenv import load_dotenv
 from fastapi import FastAPI
 
+# app = FastAPI()
 
-app = FastAPI()
+conn = sqlite3.connect('stickers.db')
 
-load_dotenv()
-
-# Loading enviroment variables
-
-login = os.getenv("LOGIN")
-uri_env = os.getenv("URI")
-user = os.getenv("USER")
-
-uri = "mongodb://" + str(user) + ":" + str(login) + "@" + str(uri_env)
+c = conn.cursor()
 
 
-# Establish a connection to the database
-
-def authenticate():
-    try:
-        app.mongodb_client = MongoClient(uri)
-        app.database = app.mongodb_client['stickers']
-    except Exception as e:
-        print("Could not connect to database!\nException in Database.py:\n\n" + str(e))
-    else:
-        print("Connected to the database!")
-
-
-# Search for Stickers with passed tag
+# Basic database structure as of now:
+# sid (string, representing the sticker id passed over by telegram)
+# tags (list, the user-defined tags used to search the sticker)
 
 def search(query):
-    pass
+    return None
 
 
-def add(id_sticker):
-    pass
+def add(sid, tags):
+    # Fetch row with matching SID and remove the sid to get the tags
+    # Structure: "tag1,tag2,tag3"
+
+    cursor = conn.execute("""SELECT * FROM stickers WHERE sid == ?""", (sid,))
+    fa = cursor.fetchall()
+
+    if len(fa) == 0:
+        # Adding a new entry in the database
+        c.execute("""INSERT INTO stickers VALUES (?, ?)""", (sid, tags))
+        conn.commit()
+        return 0
+    else:
+        # Removing the SID and adding the new tags
+        fa2 = fa.pop(0)
+        fa3 = fa2[:][1]
+        result = fa3 + "," + tags
+        # Updating the database
+        c.execute("""UPDATE stickers SET tags = ? WHERE sid == ?""", (result, sid,))
+        conn.commit()
+        return 0
+
 
 # Only uncomment to test the database connection:
-# authenticate()
+# add("sduif67", "test54,test53,test98")

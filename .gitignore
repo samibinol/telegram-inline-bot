@@ -213,3 +213,4 @@ fabric.properties
 /.idea/vcs.xml
 /stores.env
 /.idea/telegram-inline-bot.iml
+/stickers.db
