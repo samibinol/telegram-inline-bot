@@ -5,8 +5,6 @@ from pymongo import *
 from dotenv import load_dotenv
 from fastapi import FastAPI
 
-# app = FastAPI()
-
 conn = sqlite3.connect('stickers.db')
 
 c = conn.cursor()
