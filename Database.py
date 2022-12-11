@@ -1,21 +1,23 @@
-import sqlite3
 import re
+import sqlite3
+from ast import literal_eval
 
-conn = sqlite3.connect('stickers.db')
+conn = sqlite3.connect('stickers.db', check_same_thread=False)
 
 c = conn.cursor()
-
 
 # Basic database structure as of now:
 # sid (string, representing the sticker id passed over by telegram)
 # tags (list, the user-defined tags used to search the sticker)
 
-def search(query):
+
+def search(query) -> list:
     qc = re.sub(r'\W', '', query)
     q = "%" + qc + "%"
     cursor = conn.execute("""SELECT sid FROM stickers WHERE tags LIKE ?""", (q,))
     fa = cursor.fetchall()
-    return fa
+    string = repr(fa)
+    return string
 
 
 def remove(sid):
@@ -48,8 +50,3 @@ def add(sid, tags):
         c.execute("""UPDATE stickers SET tags = ? WHERE sid == ?""", (result, sid,))
         conn.commit()
         return 0
-
-
-# Only uncomment to test the database connection:
-# add("sduif67", "test54,test53,test98")
-search("test")

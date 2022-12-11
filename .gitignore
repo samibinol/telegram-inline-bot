@@ -216,3 +216,4 @@ fabric.properties
 
 # Database of the project
 /stickers.db
+/config.py
